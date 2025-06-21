@@ -14,6 +14,7 @@ import { mockUsers } from '@/mocks/users';
 import { useUserStore } from '@/store/useUserStore';
 import Colors from '@/constants/colors';
 import { User } from '@/types';
+import type { ViewToken } from 'react-native';
 
 const { height } = Dimensions.get('window');
 
@@ -42,12 +43,15 @@ export default function DiscoverScreen() {
     }, [filteredUsers.length, resetViewedUsers])
   );
   
-  const handleViewableItemsChanged = useCallback(({ viewableItems }) => {
-    if (viewableItems.length > 0) {
-      setActiveIndex(viewableItems[0].index);
-      addViewedUser(viewableItems[0].item.id);
-    }
-  }, [addViewedUser]);
+  const handleViewableItemsChanged = useCallback(
+    ({ viewableItems }: { viewableItems: Array<ViewToken> }) => {
+      if (viewableItems.length > 0) {
+        setActiveIndex(viewableItems[0].index ?? 0);
+        addViewedUser(viewableItems[0].item.id);
+      }
+    },
+    [addViewedUser]
+  );
   
   const handleLike = (user: User) => {
     addLike(user.id);

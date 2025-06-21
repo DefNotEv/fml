@@ -5,6 +5,7 @@ import { useRouter } from 'expo-router';
 import { formatDistanceToNow } from '@/utils/dateUtils';
 import Colors from '@/constants/colors';
 import { User, Match } from '@/types';
+import type { RelativePathString } from "expo-router";
 
 interface MatchCardProps {
   match: Match;
@@ -15,7 +16,7 @@ export default function MatchCard({ match, user }: MatchCardProps) {
   const router = useRouter();
   
   const handlePress = () => {
-    router.push(`/chat/${user.id}`);
+    router.push({ pathname: "/chat/[id]" as RelativePathString, params: { id: user.id } });
   };
   
   return (

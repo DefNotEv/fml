@@ -15,6 +15,7 @@ import * as Haptics from 'expo-haptics';
 import { MessageCircle, X } from 'lucide-react-native';
 import Colors from '@/constants/colors';
 import { User } from '@/types';
+import type { RelativePathString } from "expo-router";
 
 interface MatchModalProps {
   visible: boolean;
@@ -37,7 +38,7 @@ export default function MatchModal({ visible, onClose, matchedUser }: MatchModal
 
   const handleMessage = () => {
     onClose();
-    router.push(`/chat/${matchedUser.id}`);
+    router.push({ pathname: "/chat/[id]" as RelativePathString, params: { id: matchedUser.id } });
   };
 
   return (

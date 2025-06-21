@@ -15,6 +15,7 @@ import { Image } from 'expo-image';
 import { Send } from 'lucide-react-native';
 import { mockUsers } from '@/mocks/users';
 import Colors from '@/constants/colors';
+import type { RelativePathString } from "expo-router";
 
 interface Message {
   id: string;
@@ -186,7 +187,7 @@ export default function ChatScreen() {
         options={{ 
           title: user.name,
           headerRight: () => (
-            <TouchableOpacity onPress={() => router.push(`/profile/${id}`)}>
+            <TouchableOpacity onPress={() => router.push({ pathname: "/profile/[id]" as RelativePathString, params: { id } })}>
               <Image
                 source={{ uri: user.avatar }}
                 style={styles.headerAvatar}

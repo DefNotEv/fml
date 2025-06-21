@@ -13,6 +13,7 @@ import { mockUsers } from '@/mocks/users';
 import MatchCard from '@/components/MatchCard';
 import Colors from '@/constants/colors';
 import { User } from '@/types';
+import type { RelativePathString } from "expo-router";
 
 export default function MatchesScreen() {
   const router = useRouter();
@@ -25,7 +26,7 @@ export default function MatchesScreen() {
   }).filter(item => item.user) as { match: typeof matches[0], user: User }[];
   
   const handleViewProfile = (userId: string) => {
-    router.push(`/profile/${userId}`);
+    router.push({ pathname: "/profile/[id]" as RelativePathString, params: { id: userId } });
   };
   
   if (matches.length === 0) {
