@@ -62,7 +62,7 @@ export const mockUsers = [
     name: 'Casey Johnson',
     pronouns: 'he/him',
     birthday: '1996-09-30',
-    interests: ['Basketball', 'Cooking', 'Podcasts', 'Dogs'],
+    interests: ['Basketball', 'Baking', 'Podcasts', 'Dogs'],
     prompts: [
       { question: 'My ideal Sunday is...', answer: 'Playing basketball and cooking dinner for friends' },
       { question: 'I\'m looking for...', answer: 'Someone who loves sports and has a dog' },

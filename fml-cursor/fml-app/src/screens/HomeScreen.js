@@ -31,11 +31,6 @@ const HomeScreen = ({ navigation }) => {
     console.log('Navigate to user profile:', userId);
   };
 
-  const handleComment = (videoId) => {
-    // Handle comment action (we'll implement this later)
-    console.log('Open comments for video:', videoId);
-  };
-
   const onViewableItemsChanged = ({ viewableItems }) => {
     if (viewableItems.length > 0) {
       setCurrentVideoIndex(viewableItems[0].index);
@@ -56,7 +51,6 @@ const HomeScreen = ({ navigation }) => {
         user={user}
         onUserPress={handleUserPress}
         onLike={handleLike}
-        onComment={handleComment}
         shouldPlay={isCurrentVideo}
       />
     );

@@ -33,11 +33,6 @@ const MatchesScreen = () => {
     console.log('Navigate to matched user profile:', userId);
   };
 
-  const handleComment = (videoId) => {
-    // Handle comment action
-    console.log('Open comments for matched video:', videoId);
-  };
-
   const onViewableItemsChanged = ({ viewableItems }) => {
     if (viewableItems.length > 0) {
       setCurrentVideoIndex(viewableItems[0].index);
@@ -60,7 +55,6 @@ const MatchesScreen = () => {
           user={user}
           onUserPress={handleUserPress}
           onLike={handleLike}
-          onComment={handleComment}
           shouldPlay={isCurrentVideo}
         />
         {match?.isNew && (

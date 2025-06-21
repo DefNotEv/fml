@@ -10,12 +10,14 @@ import {
 import { Video, ResizeMode } from 'expo-av';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
+import CommentSection from './CommentSection';
 
 const { width, height } = Dimensions.get('window');
 
 const VideoCard = ({ video, user, onUserPress, onLike, onComment, shouldPlay = true }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [isPlaying, setIsPlaying] = useState(shouldPlay);
+  const [showComments, setShowComments] = useState(false);
   const videoRef = useRef(null);
 
   // Handle shouldPlay prop changes
@@ -43,13 +45,14 @@ const VideoCard = ({ video, user, onUserPress, onLike, onComment, shouldPlay = t
     setIsPlaying(!isPlaying);
   };
 
-  const formatNumber = (num) => {
-    if (num >= 1000000) {
-      return (num / 1000000).toFixed(1) + 'M';
-    } else if (num >= 1000) {
-      return (num / 1000).toFixed(1) + 'K';
-    }
-    return num.toString();
+  const handleCommentPress = () => {
+    console.log('Comment button pressed, opening comment section');
+    setShowComments(true);
+  };
+
+  const closeComments = () => {
+    console.log('Closing comment section');
+    setShowComments(false);
   };
 
   return (
@@ -80,17 +83,10 @@ const VideoCard = ({ video, user, onUserPress, onLike, onComment, shouldPlay = t
             size={30} 
             color={isLiked ? "#ff4757" : "white"} 
           />
-          <Text style={styles.actionText}>{formatNumber(video.likes)}</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.actionButton} onPress={() => onComment && onComment(video.id)}>
+        <TouchableOpacity style={styles.actionButton} onPress={handleCommentPress}>
           <Ionicons name="chatbubble-outline" size={30} color="white" />
-          <Text style={styles.actionText}>{formatNumber(video.comments)}</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.actionButton}>
-          <Ionicons name="share-outline" size={30} color="white" />
-          <Text style={styles.actionText}>Share</Text>
         </TouchableOpacity>
       </View>
 
@@ -112,6 +108,13 @@ const VideoCard = ({ video, user, onUserPress, onLike, onComment, shouldPlay = t
           </View>
         </LinearGradient>
       </View>
+
+      {/* Comment Section Modal */}
+      <CommentSection
+        visible={showComments}
+        onClose={closeComments}
+        videoId={video.id}
+      />
     </View>
   );
 };
@@ -140,12 +143,7 @@ const styles = StyleSheet.create({
   actionButton: {
     alignItems: 'center',
     marginBottom: 20,
-  },
-  actionText: {
-    color: 'white',
-    fontSize: 12,
-    marginTop: 5,
-    fontWeight: '600',
+    padding: 10, // Add padding to make touch target larger
   },
   bottomContainer: {
     position: 'absolute',
